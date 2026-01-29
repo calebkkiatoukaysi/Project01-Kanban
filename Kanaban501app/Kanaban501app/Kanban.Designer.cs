@@ -124,6 +124,7 @@
             this.NewButton.TabIndex = 7;
             this.NewButton.Text = "New";
             this.NewButton.UseVisualStyleBackColor = true;
+            this.NewButton.Click += new System.EventHandler(this.NewButton_Click);
             // 
             // EditButton
             // 
@@ -164,6 +165,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Kanban501";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Kanban501_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

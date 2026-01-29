@@ -46,16 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="AddEdit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AddEdit.Designer.cs">
+      <DependentUpon>AddEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KanbanItem.cs" />
+    <Compile Include="Kanban.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Kanban.Designer.cs">
+      <DependentUpon>Kanban.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AddEdit.resx">
+      <DependentUpon>AddEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Kanban.resx">
+      <DependentUpon>Kanban.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
