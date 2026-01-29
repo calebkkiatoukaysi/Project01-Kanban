@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Kanaban501app
 {
-    public partial class Form1 : Form
+    public partial class Kanban501 : Form
     {
-        public Form1()
+        public Kanban501()
         {
             InitializeComponent();
         }
