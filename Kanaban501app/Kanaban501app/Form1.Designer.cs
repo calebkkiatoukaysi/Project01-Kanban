@@ -45,7 +45,7 @@
             this.Kanban501Label.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.Kanban501Label.AutoSize = true;
             this.Kanban501Label.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Kanban501Label.Location = new System.Drawing.Point(610, 75);
+            this.Kanban501Label.Location = new System.Drawing.Point(589, 70);
             this.Kanban501Label.Name = "Kanban501Label";
             this.Kanban501Label.Size = new System.Drawing.Size(372, 73);
             this.Kanban501Label.TabIndex = 0;
@@ -57,7 +57,7 @@
             this.WorkingOnLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.WorkingOnLabel.AutoSize = true;
             this.WorkingOnLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WorkingOnLabel.Location = new System.Drawing.Point(662, 219);
+            this.WorkingOnLabel.Location = new System.Drawing.Point(641, 214);
             this.WorkingOnLabel.Name = "WorkingOnLabel";
             this.WorkingOnLabel.Size = new System.Drawing.Size(225, 42);
             this.WorkingOnLabel.TabIndex = 1;
@@ -68,7 +68,7 @@
             this.ToDoLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ToDoLabel.AutoSize = true;
             this.ToDoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ToDoLabel.Location = new System.Drawing.Point(224, 219);
+            this.ToDoLabel.Location = new System.Drawing.Point(203, 214);
             this.ToDoLabel.Name = "ToDoLabel";
             this.ToDoLabel.Size = new System.Drawing.Size(125, 42);
             this.ToDoLabel.TabIndex = 2;
@@ -79,7 +79,7 @@
             this.DoneLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DoneLabel.AutoSize = true;
             this.DoneLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.875F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DoneLabel.Location = new System.Drawing.Point(1175, 219);
+            this.DoneLabel.Location = new System.Drawing.Point(1154, 214);
             this.DoneLabel.Name = "DoneLabel";
             this.DoneLabel.Size = new System.Drawing.Size(112, 42);
             this.DoneLabel.TabIndex = 3;
@@ -90,9 +90,9 @@
             this.ToDoList.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.ToDoList.FormattingEnabled = true;
             this.ToDoList.ItemHeight = 25;
-            this.ToDoList.Location = new System.Drawing.Point(98, 306);
+            this.ToDoList.Location = new System.Drawing.Point(77, 301);
             this.ToDoList.Name = "ToDoList";
-            this.ToDoList.Size = new System.Drawing.Size(383, 404);
+            this.ToDoList.Size = new System.Drawing.Size(383, 554);
             this.ToDoList.TabIndex = 4;
             // 
             // WorkingOnList
@@ -100,9 +100,9 @@
             this.WorkingOnList.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.WorkingOnList.FormattingEnabled = true;
             this.WorkingOnList.ItemHeight = 25;
-            this.WorkingOnList.Location = new System.Drawing.Point(578, 306);
+            this.WorkingOnList.Location = new System.Drawing.Point(557, 301);
             this.WorkingOnList.Name = "WorkingOnList";
-            this.WorkingOnList.Size = new System.Drawing.Size(383, 404);
+            this.WorkingOnList.Size = new System.Drawing.Size(383, 554);
             this.WorkingOnList.TabIndex = 5;
             // 
             // DoneList
@@ -110,15 +110,15 @@
             this.DoneList.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.DoneList.FormattingEnabled = true;
             this.DoneList.ItemHeight = 25;
-            this.DoneList.Location = new System.Drawing.Point(1044, 306);
+            this.DoneList.Location = new System.Drawing.Point(1023, 301);
             this.DoneList.Name = "DoneList";
-            this.DoneList.Size = new System.Drawing.Size(383, 404);
+            this.DoneList.Size = new System.Drawing.Size(383, 554);
             this.DoneList.TabIndex = 6;
             // 
             // NewButton
             // 
             this.NewButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.NewButton.Location = new System.Drawing.Point(98, 759);
+            this.NewButton.Location = new System.Drawing.Point(77, 931);
             this.NewButton.Name = "NewButton";
             this.NewButton.Size = new System.Drawing.Size(181, 61);
             this.NewButton.TabIndex = 7;
@@ -128,7 +128,7 @@
             // EditButton
             // 
             this.EditButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.EditButton.Location = new System.Drawing.Point(300, 759);
+            this.EditButton.Location = new System.Drawing.Point(279, 931);
             this.EditButton.Name = "EditButton";
             this.EditButton.Size = new System.Drawing.Size(181, 61);
             this.EditButton.TabIndex = 8;
@@ -138,7 +138,7 @@
             // DeleteButton
             // 
             this.DeleteButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.DeleteButton.Location = new System.Drawing.Point(1246, 749);
+            this.DeleteButton.Location = new System.Drawing.Point(1225, 931);
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(181, 61);
             this.DeleteButton.TabIndex = 9;
@@ -149,9 +149,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(1566, 869);
+            this.ClientSize = new System.Drawing.Size(1524, 1029);
             this.Controls.Add(this.DeleteButton);
             this.Controls.Add(this.EditButton);
             this.Controls.Add(this.NewButton);
@@ -164,6 +162,7 @@
             this.Controls.Add(this.Kanban501Label);
             this.Name = "Kanban501";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Kanban501";
             this.ResumeLayout(false);
             this.PerformLayout();
