@@ -17,7 +17,7 @@ namespace Kanaban501app
         public AddEdit()
         {
             InitializeComponent();
-
+            CompleteBy.Value = DateTime.Today;
         }
 
         private void LoadItemData(KanbanItem item)

@@ -25,6 +25,60 @@ namespace Kanaban501app
             ToDoList.SelectedIndexChanged += ToDoList_SelectedIndexChanged;
             WorkingOnList.SelectedIndexChanged += WorkingOnList_SelectedIndexChanged;
             DoneList.SelectedIndexChanged += DoneList_SelectedIndexChanged;
+
+            ToDoList.DrawMode = DrawMode.OwnerDrawVariable;
+            WorkingOnList.DrawMode = DrawMode.OwnerDrawVariable;
+            DoneList.DrawMode = DrawMode.OwnerDrawVariable;
+
+            ToDoList.DrawItem += ListBox_DrawItem;
+            ToDoList.MeasureItem += ListBox_MeasureItem;
+
+            WorkingOnList.DrawItem += ListBox_DrawItem;
+            WorkingOnList.MeasureItem += ListBox_MeasureItem;
+
+            DoneList.DrawItem += ListBox_DrawItem;
+            DoneList.MeasureItem += ListBox_MeasureItem;
+        }
+
+        private void ListBox_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            ListBox listBox = (ListBox)sender;
+            KanbanItem item = (KanbanItem)listBox.Items[e.Index];
+
+            e.DrawBackground();
+
+            // Determine if item is overdue (and not in Done list)
+            bool isOverdue = item.CompleteBy.Date < DateTime.Today && item.Status != "Done";
+            // set red color for overdue, else, use default forecolor
+            Color textColor = isOverdue ? Color.Red : e.ForeColor;
+
+            // If item is selected, use white text for good looks :)
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                textColor = isOverdue ? Color.LightCoral : Color.White;
+            }
+
+            using (Brush brush = new SolidBrush(textColor))
+            {
+                e.Graphics.DrawString(item.ToString(), e.Font, brush, e.Bounds);
+            }
+
+            // Draw focus rectangle
+            e.DrawFocusRectangle();
+        }
+
+        private void ListBox_MeasureItem(object sender, MeasureItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+
+            ListBox listBox = (ListBox)sender;
+            KanbanItem item = (KanbanItem)listBox.Items[e.Index];
+
+            // Measure the height needed for the item text
+            SizeF size = e.Graphics.MeasureString(item.ToString(), listBox.Font, listBox.Width);
+            e.ItemHeight = (int)size.Height + 5; // Add padding
         }
 
         private void ToDoList_SelectedIndexChanged(object sender, EventArgs e)
