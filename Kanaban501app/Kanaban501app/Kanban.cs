@@ -21,6 +21,37 @@ namespace Kanaban501app
             this.Size = new Size(1000, 700);
             LoadGoalActivities();
             CenterKanbanBoard();
+
+            ToDoList.SelectedIndexChanged += ToDoList_SelectedIndexChanged;
+            WorkingOnList.SelectedIndexChanged += WorkingOnList_SelectedIndexChanged;
+            DoneList.SelectedIndexChanged += DoneList_SelectedIndexChanged;
+        }
+
+        private void ToDoList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ToDoList.SelectedIndex != -1)
+            {
+                WorkingOnList.ClearSelected();
+                DoneList.ClearSelected();
+            }
+        }
+
+        private void WorkingOnList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (WorkingOnList.SelectedIndex != -1)
+            {
+                ToDoList.ClearSelected();
+                DoneList.ClearSelected();
+            }
+        }
+
+        private void DoneList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (DoneList.SelectedIndex != -1)
+            {
+                ToDoList.ClearSelected();
+                WorkingOnList.ClearSelected();
+            }
         }
 
         private void LoadGoalActivities()
@@ -221,6 +252,165 @@ namespace Kanaban501app
                 }
             }
         }
-    }
 
+        private void EditButton_Click(object sender, EventArgs e)
+        {
+            ListBox selectedListBox = null;
+            KanbanItem item = null;
+
+            if (ToDoList.SelectedIndex != -1)
+            {
+                selectedListBox = ToDoList;
+                item = (KanbanItem)ToDoList.SelectedItem;
+            }
+            else if (WorkingOnList.SelectedIndex != -1)
+            {
+                selectedListBox = WorkingOnList;
+                item = (KanbanItem)WorkingOnList.SelectedItem;
+            }
+            else if (DoneList.SelectedIndex != -1)
+            {
+                selectedListBox = DoneList;
+                item = (KanbanItem)DoneList.SelectedItem;
+            }
+
+            // If nothing is selected, show a message that there was nothing selected
+            if (selectedListBox == null || item == null)
+            {
+                MessageBox.Show("Please select an item to edit.", "No Selection",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Store the old status to check if it changed
+            string oldStatus = item.Status;
+            int selectedIndex = selectedListBox.SelectedIndex;
+
+            AddEdit addEdit = new AddEdit(item);
+
+            if (addEdit.ShowDialog() == DialogResult.OK)
+            {
+                if (addEdit.StatusBox.SelectedItem == null)
+                {
+                    MessageBox.Show("Please select a status.", "Validation Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                if (string.IsNullOrWhiteSpace(addEdit.ActivityTextBox.Text))
+                {
+                    MessageBox.Show("Please enter an activity.", "Validation Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                // Update item properties
+                item.Activity = addEdit.ActivityTextBox.Text;
+                item.Resources = addEdit.ResourcesTextBox.Text;
+                item.CompleteBy = addEdit.CompleteBy.Value;
+                item.Status = addEdit.StatusBox.SelectedItem.ToString();
+                string newStatus = addEdit.StatusBox.SelectedItem.ToString();
+
+                // Check if status changed
+                if (oldStatus != newStatus)
+                {
+                    selectedListBox.Items.RemoveAt(selectedIndex);
+
+                    // Determine new list
+                    ListBox targetList = null;
+
+                    switch (newStatus)
+                    {
+                        case "To Do":
+                            targetList = ToDoList;
+                            break;
+                        case "Working On":
+                            targetList = WorkingOnList;
+                            break;
+                        case "Done":
+                            targetList = DoneList;
+                            break;
+                    }
+
+                    // Check limits before moving
+                    if (targetList != null)
+                    {
+                        if (newStatus == "Working On" && targetList.Items.Count >= 3)
+                        {
+                            MessageBox.Show("The Working On list is full! Maximum 3 entries allowed.",
+                                "List Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            // Add back to original list
+                            selectedListBox.Items.Insert(selectedIndex, item);
+                            item.Status = oldStatus; // Revert status
+                            return;
+                        }
+                        else if (targetList.Items.Count >= 15)
+                        {
+                            MessageBox.Show($"The {newStatus} list is full! Maximum 15 entries allowed.",
+                                "List Full", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            // Add back to original list
+                            selectedListBox.Items.Insert(selectedIndex, item);
+                            item.Status = oldStatus; // Revert status
+                            return;
+                        }
+
+                        // Add to new list
+                        targetList.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    // Status didn't change, just refresh the display
+                    selectedListBox.Items[selectedIndex] = item;
+                }
+                SaveGoalActivities();
+
+                ToDoList.ClearSelected();
+                WorkingOnList.ClearSelected();
+                DoneList.ClearSelected();
+            }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            ListBox selectedListBox = null;
+            KanbanItem item = null;
+
+            if (ToDoList.SelectedIndex != -1)
+            {
+                selectedListBox = ToDoList;
+                item = (KanbanItem)ToDoList.SelectedItem;
+            }
+            else if (WorkingOnList.SelectedIndex != -1)
+            {
+                selectedListBox = WorkingOnList;
+                item = (KanbanItem)WorkingOnList.SelectedItem;
+            }
+            else if (DoneList.SelectedIndex != -1)
+            {
+                selectedListBox = DoneList;
+                item = (KanbanItem)DoneList.SelectedItem;
+            }
+
+            // If nothing is selected, show a message that there was nothing selected
+            if (selectedListBox == null || item == null)
+            {
+                MessageBox.Show("Please select an item to delete.", "No Selection",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Confirm deletion
+            var result = MessageBox.Show($"Are you sure you want to delete the activity: {item.Activity}?",
+                "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                selectedListBox.Items.Remove(item);
+                SaveGoalActivities();
+            }
+            else
+            {
+                // Do nothing if user selects No
+                return;
+            }
+        }
+    }
 }

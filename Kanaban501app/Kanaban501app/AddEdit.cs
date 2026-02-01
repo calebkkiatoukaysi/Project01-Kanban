@@ -12,10 +12,26 @@ namespace Kanaban501app
 {
     public partial class AddEdit : Form
     {
+
+        private bool isEditMode = false;
         public AddEdit()
         {
             InitializeComponent();
 
+        }
+
+        private void LoadItemData(KanbanItem item)
+        {
+            ActivityTextBox.Text = item.Activity;
+            ResourcesTextBox.Text = item.Resources;
+            CompleteBy.Value = item.CompleteBy;
+            StatusBox.SelectedItem = item.Status;
+        }
+
+        public AddEdit(KanbanItem item) : this()
+        {
+            isEditMode = true;
+            LoadItemData(item);
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -26,7 +42,6 @@ namespace Kanaban501app
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("OK button clicked!");
             if (string.IsNullOrWhiteSpace(ActivityTextBox.Text))
             {
                 MessageBox.Show("Please enter an activity.", "Validation Error",
